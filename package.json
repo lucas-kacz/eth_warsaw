@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@requestnetwork/request-client.js": "^0.40.0",
+    "@requestnetwork/web3-signature": "^0.4.36",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
@@ -16,6 +18,7 @@
     "@web3auth/torus-evm-adapter": "^6.1.7",
     "@web3auth/torus-wallet-connector-plugin": "^6.1.7",
     "@web3auth/wallet-connect-v2-adapter": "^6.1.8",
+    "dotenv": "^16.3.1",
     "ethers": "^6.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
