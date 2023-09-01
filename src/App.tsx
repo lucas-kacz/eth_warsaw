@@ -141,7 +141,7 @@ function App() {
         // adding metamask adapter
         const metamaskAdapter = new MetamaskAdapter({
           clientId,
-          sessionTime: 3600, // 1 hour in seconds
+          sessionTime: 86400, // 1 day in seconds
           web3AuthNetwork: "cyan",
           chainConfig: {
             chainNamespace: CHAIN_NAMESPACES.EIP155,
@@ -228,6 +228,7 @@ function App() {
       return("web3auth not initialized yet");
     }
     await web3auth.logout();
+    window.location.href = "/";
     setProvider(null);
     setLoggedIn(false);
   };
@@ -242,7 +243,6 @@ function App() {
       <nav>
           <ul>
               <li>
-                  <Link to="/">Home</Link>
                   {
                       loggedIn ? (
                           <button onClick={logout}>Logout</button>
@@ -251,15 +251,26 @@ function App() {
                       )
                   }
               </li>
-              <li>
-                  <Link to="/contact">Contact</Link>
-              </li>
-              <li>
-                  <Link to="/invoice_payment/create">Create Invoice Payment</Link>
-              </li>
-              <li>
-                  <Link to="/invoice_payment/pay">Pay Invoice Payment</Link>
-              </li>
+              {
+                  loggedIn ? (
+                    <>
+                      <li>
+                          <Link to="/dashboard">Dashboard</Link>
+                      </li>
+                      <li>
+                          <Link to="/contact">Contact</Link>
+                      </li>
+                      <li>
+                          <Link to="/invoice_payment/create">Create Invoice Payment</Link>
+                      </li>
+                      <li>
+                          <Link to="/invoice_payment/pay">Pay Invoice Payment</Link>
+                      </li>
+                    </>
+                  ) : (
+                    <></>
+                  )
+              }
           </ul>
       </nav>
     );

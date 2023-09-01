@@ -5,7 +5,7 @@ interface RouterProps {
     web3auth: any;
 }
 
-const Home = ({ web3auth }: RouterProps) => {
+const Dashboard = ({ web3auth }: RouterProps) => {
 
     const [user, setUser] = useState<any>(null);
     const [address, setAddress] = useState<any>(null);
@@ -31,7 +31,7 @@ const Home = ({ web3auth }: RouterProps) => {
 
     return (
         <div>
-            <h1>Home</h1>
+            <h1>Dashboard</h1>
             <button onClick={getUserInfo}>Get User Info</button>
             <button onClick={getAccounts}>Get Accounts</button>
             <p>{user ? JSON.stringify(user) : "No user info"}</p>
@@ -40,4 +40,4 @@ const Home = ({ web3auth }: RouterProps) => {
     );
 }
 
-export default Home;
+export default Dashboard;
