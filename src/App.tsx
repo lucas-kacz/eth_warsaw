@@ -258,6 +258,9 @@ function App() {
                           <Link to="/dashboard">Dashboard</Link>
                       </li>
                       <li>
+                          <Link to="/request">Request</Link>
+                      </li>
+                      <li>
                           <Link to="/contact">Contact</Link>
                       </li>
                       <li>
