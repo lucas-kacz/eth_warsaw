@@ -5,8 +5,6 @@ import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { BrowserRouter, Link } from "react-router-dom";
 import Router from "./Router";
-import RPC from "./web3RPC"; // for using web3.js
-//import RPC from "./ethersRPC"; // for using ethers.js
 
 // Plugins
 import { TorusWalletConnectorPlugin } from "@web3auth/torus-wallet-connector-plugin";
@@ -252,6 +250,15 @@ function App() {
                           <button onClick={login}>Login</button>
                       )
                   }
+              </li>
+              <li>
+                  <Link to="/contact">Contact</Link>
+              </li>
+              <li>
+                  <Link to="/invoice_payment/create">Create Invoice Payment</Link>
+              </li>
+              <li>
+                  <Link to="/invoice_payment/pay">Pay Invoice Payment</Link>
               </li>
           </ul>
       </nav>

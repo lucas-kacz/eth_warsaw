@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Web3Auth } from "@web3auth/modal";
+import { useState } from "react";
 import RPC from "../utils/ethersRPC";
 
 interface RouterProps {
