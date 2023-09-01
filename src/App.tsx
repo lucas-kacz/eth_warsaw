@@ -5,6 +5,7 @@ import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { BrowserRouter, Link } from "react-router-dom";
 import Router from "./Router";
+import RPC from "./utils/ethersRPC";
 
 // Plugins
 import { TorusWalletConnectorPlugin } from "@web3auth/torus-wallet-connector-plugin";
@@ -31,6 +32,7 @@ function App() {
     null
   );
   const [loggedIn, setLoggedIn] = useState(false);
+  const [privateKey, setPrivateKey] = useState("");
 
   useEffect(() => {
     const init = async () => {
@@ -233,6 +235,20 @@ function App() {
     setLoggedIn(false);
   };
 
+  const getPrivateKey = async () => {
+    if (!provider) {
+        return;
+    }
+    const rpc = new RPC(provider);
+    const privateKey = await rpc.getPrivateKey();
+    
+    setPrivateKey(privateKey)
+  };
+
+  useEffect(() => {
+    getPrivateKey();
+  }, [provider]);
+
   interface RouterProps {
     logout: () => void;
     login: () => void;
@@ -282,7 +298,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar logout={logout} login={login} />
-      <Router web3auth={web3auth} />
+      <Router web3auth={web3auth} privateKey={privateKey} />
     </BrowserRouter>
   );
 }
