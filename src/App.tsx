@@ -234,23 +234,6 @@ function App() {
     setLoggedIn(false);
   };
 
-  const getUserInfo = async () => {
-    if (!web3auth) {
-      return("web3auth not initialized yet");
-    }
-    const user = await web3auth.getUserInfo();
-    return(user);
-  };
-
-  const getAccounts = async () => {
-    if (!provider) {
-      return("provider not initialized yet");
-    }
-    const rpc = new RPC(provider);
-    const address = await rpc.getAccounts();
-    return(address);
-  };
-
   interface RouterProps {
     logout: () => void;
     login: () => void;
@@ -278,7 +261,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar logout={logout} login={login} />
-      <Router />
+      <Router web3auth={web3auth} />
     </BrowserRouter>
   );
 }
