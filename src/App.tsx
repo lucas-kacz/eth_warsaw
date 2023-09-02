@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NextUIProvider, Button, Spinner } from "@nextui-org/react";
 import { Web3Auth } from "@web3auth/modal";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
@@ -33,6 +34,8 @@ function App() {
   );
   const [loggedIn, setLoggedIn] = useState(false);
   const [privateKey, setPrivateKey] = useState("");
+  const [account, setAccount] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const init = async () => {
@@ -42,7 +45,7 @@ function App() {
           chainConfig: {
             chainNamespace: CHAIN_NAMESPACES.EIP155,
             chainId: "0xaef3",
-            rpcTarget: "https://alfajores-forno.celo-testnet.org",
+            rpcTarget: process.env.REACT_APP_INFURA_LINK || "",
           },
           uiConfig: {
             appName: "W3A",
@@ -148,7 +151,7 @@ function App() {
           chainConfig: {
             chainNamespace: CHAIN_NAMESPACES.EIP155,
             chainId: "0xaef3",
-            rpcTarget: "https://alfajores-forno.celo-testnet.org",
+            rpcTarget: process.env.REACT_APP_INFURA_LINK || "",
           },
         });
         // we can change the above settings using this function
@@ -157,7 +160,7 @@ function App() {
           chainConfig: {
             chainNamespace: CHAIN_NAMESPACES.EIP155,
             chainId: "0xaef3",
-            rpcTarget: "https://alfajores-forno.celo-testnet.org",
+            rpcTarget: process.env.REACT_APP_INFURA_LINK || "",
           },
           web3AuthNetwork: "cyan",
         });
@@ -217,19 +220,23 @@ function App() {
   }, []);
 
   const login = async () => {
+    setLoading(true);
     if (!web3auth) {
       return("web3auth not initialized yet");
     }
     const web3authProvider = await web3auth.connect();
     setProvider(web3authProvider);
+    setLoading(false);
     setLoggedIn(true);
   };
 
   const logout = async () => {
+    setLoading(true);
     if (!web3auth) {
       return("web3auth not initialized yet");
     }
     await web3auth.logout();
+    setLoading(false);
     window.location.href = "/";
     setProvider(null);
     setLoggedIn(false);
@@ -241,12 +248,23 @@ function App() {
     }
     const rpc = new RPC(provider);
     const privateKey = await rpc.getPrivateKey();
-    
-    setPrivateKey(privateKey)
+    console.log("privateKey1:", privateKey);
+    setPrivateKey(privateKey);
+  };
+
+  const getAccounts = async () => {
+    if (!provider) {
+        return;
+    }
+    const rpc = new RPC(provider);
+    const accounts = await rpc.getAccounts();
+    setAccount(accounts.toString());
+    console.log("account:", accounts.toString());
   };
 
   useEffect(() => {
     getPrivateKey();
+    getAccounts();
   }, [provider]);
 
   interface RouterProps {
@@ -258,12 +276,19 @@ function App() {
     return (
       <nav>
           <ul>
+            {
+              loading ? (
+                <Spinner />
+              )
+              :
+              (
+                <>
               <li>
                   {
                       loggedIn ? (
-                          <button onClick={logout}>Logout</button>
+                        <Button onClick={logout}>Logout</Button>
                       ) : (
-                          <button onClick={login}>Login</button>
+                        <Button onClick={login}>Login</Button>
                       )
                   }
               </li>
@@ -272,9 +297,6 @@ function App() {
                     <>
                       <li>
                           <Link to="/dashboard">Dashboard</Link>
-                      </li>
-                      <li>
-                          <Link to="/request">Request</Link>
                       </li>
                       <li>
                           <Link to="/contact">Contact</Link>
@@ -290,16 +312,21 @@ function App() {
                     <></>
                   )
               }
+              </>
+              )
+            }
           </ul>
       </nav>
     );
   }
 
   return (
-    <BrowserRouter>
-      <Navbar logout={logout} login={login} />
-      <Router web3auth={web3auth} privateKey={privateKey} />
-    </BrowserRouter>
+    <NextUIProvider>
+      <BrowserRouter>
+        <Navbar logout={logout} login={login} />
+        <Router web3auth={web3auth} privateKey={privateKey} account={account} />
+      </BrowserRouter>
+    </NextUIProvider>
   );
 }
 
