@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { SafeEventEmitterProvider } from "@web3auth/base";
+import { Web3SignatureProvider } from "@requestnetwork/web3-signature";
+import { RequestNetwork, Types, Utils } from "@requestnetwork/request-client.js";
 import { ethers } from "ethers";
 
 export default class EthereumRpc {
@@ -9,6 +11,68 @@ export default class EthereumRpc {
     this.provider = provider;
   }
 
+  async createInvoiceRequestPayment(): Promise<any> {
+    try {
+      const signatureProvider = new Web3SignatureProvider(this.provider);
+      console.log(signatureProvider);
+      const requestClient = new RequestNetwork({
+        nodeConnectionConfig: {
+          baseURL: "https://goerli.gateway.request.network"
+        },
+        signatureProvider
+      });
+      const address = await this.getAccounts();
+      const reason = "Test";
+      const dueDate = "2022-01-01";
+      const requestCreateParameters: Types.ICreateRequestParameters = {
+        requestInfo: {
+          currency: {
+            type: Types.RequestLogic.CURRENCY.ERC20,
+            value: "0xF194afDf50B03e69Bd7D057c1Aa9e10c9954E4C9",
+            network: "alfajores",
+          },
+          expectedAmount: "1000000000000000000",
+          payee: {
+            type: Types.Identity.TYPE.ETHEREUM_ADDRESS,
+            value: address as string,
+          },
+          timestamp: Utils.getCurrentTimestampInSecond(),
+        },
+        paymentNetwork: {
+          id: Types.Extension.PAYMENT_NETWORK_ID.ERC20_FEE_PROXY_CONTRACT,
+          parameters: {
+            paymentNetworkName: "alfajores",
+            paymentAddress: address,
+            feeAddress: address,
+            feeAmount: "1000000000000000000",
+          },
+        },
+        contentData: {
+          // Consider using rnf_invoice format from @requestnetwork/data-format package.
+          reason: reason,
+          dueDate: dueDate,
+        },
+        signer: {
+          type: Types.Identity.TYPE.ETHEREUM_ADDRESS,
+          value: address as string,
+        },
+      };
+      try {
+        const request = await requestClient.createRequest(
+          requestCreateParameters
+        );
+        console.log(request.getData());
+        const confirmedRequestData = await request.waitForConfirmation();
+        console.log(confirmedRequestData);
+      } catch (err) {
+        alert(err);
+      }
+    }
+    catch (error) {
+      return error as string;
+    }
+  }
+  
   async getChainId(): Promise<any> {
     try {
       // For ethers v5
