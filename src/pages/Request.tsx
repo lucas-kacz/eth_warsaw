@@ -11,17 +11,17 @@ interface RouterProps {
 const Request = ({ web3auth, privateKey }: RouterProps) => {
 
     const [loggedIn, setLoggedIn] = useState(false);
-    const { RequestNetwork } = require("@requestnetwork/request-client.js")
+    const { RequestNetwork } = require("@requestnetwork/request-client.js")  
 
-    // const {
-    //     EthereumPrivateKeySignatureProvider,
-    // } = require("@requestnetwork/epk-signature");
-    // const { Types } = require("@requestnetwork/request-client.js");
+    const {
+        EthereumPrivateKeySignatureProvider,
+    } = require("@requestnetwork/epk-signature");
+    const { Types } = require("@requestnetwork/request-client.js");
     
-    // const epkSignatureProvider = new EthereumPrivateKeySignatureProvider({
-    //     method: Types.Signature.METHOD.ECDSA,
-    //     privateKey: process.env.PAYEE_PRIVATE_KEY, // Must include 0x prefix
-    // });
+    const epkSignatureProvider = new EthereumPrivateKeySignatureProvider({
+        method: Types.Signature.METHOD.ECDSA,
+        privateKey: ("0x"+privateKey).toString(), // Must include 0x prefix
+    });
 
 
     // const requestClient = new RequestNetwork({
