@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import { Web3Auth } from "@web3auth/modal";
 
 import Dashboard from "./pages/Dashboard";
 import Contact from "./pages/Contact";
