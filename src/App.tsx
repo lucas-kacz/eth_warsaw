@@ -327,6 +327,16 @@ function App() {
                     </li>
                 )
               }
+              {
+                loggedIn && (
+                    <li>
+                        <Link to="/test">
+                          <i className="fa fa-money"></i>
+                          Test
+                        </Link>
+                    </li>
+                )
+              }
               <li>
                 {
                   loggedIn ? (

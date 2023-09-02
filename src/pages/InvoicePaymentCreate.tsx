@@ -97,9 +97,9 @@ const InvoicePaymentCreate = ({ web3auth, account }: RouterProps) => {
 
 
         async function createPayment(){
-            // const request = await requestClient.createRequest(requestCreateParameters)
-            // const requestData = await request.waitForConfirmation();
-            // console.log(JSON.stringify(requestData));
+            const request = await requestClient.createRequest(requestCreateParameters)
+            const requestData = await request.waitForConfirmation();
+            console.log(JSON.stringify(requestData));
         }
 
     return(
