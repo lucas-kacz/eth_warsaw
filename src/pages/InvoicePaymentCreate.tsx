@@ -4,6 +4,7 @@ import RPC from "../utils/ethersRPC"
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import { Web3Auth } from "@web3auth/modal";
 import { create } from "domain";
+import { Button } from "@nextui-org/react";
 
 interface RouterProps {
     web3auth: any;
@@ -17,7 +18,7 @@ const InvoicePaymentCreate = ({ web3auth, privateKey, account }: RouterProps) =>
     const [payeeIdentity, setPayeeIdentity] = useState("")
 
     const navigate = useNavigate();
-
+/*
     const { RequestNetwork } = require("@requestnetwork/request-client.js")  
 
     const paymentRecipient = payeeIdentity;
@@ -78,6 +79,7 @@ const InvoicePaymentCreate = ({ web3auth, privateKey, account }: RouterProps) =>
             value: payeeIdentity,
           },
         };
+*/
 
         async function createPayment(){
             // const request = await requestClient.createRequest(requestCreateParameters)
@@ -86,13 +88,13 @@ const InvoicePaymentCreate = ({ web3auth, privateKey, account }: RouterProps) =>
         }
 
     return(
-        <div>
-            {/* <h1>Invoice Payment Create</h1>
+        <div className="page">
+            <h1>Invoice Payment Create</h1>
             <input type="text" name="payeeIdentity" onChange={(e) => setPayeeIdentity(e.target.value)}></input>
             {payeeIdentity}
             {privateKey}
-            <br/> */}
-            {/* <button onClick={createPayment}>Create Payment</button> */}
+            <br/>
+            <Button onClick={createPayment}>Create Payment</Button>
         </div>
     )
 }

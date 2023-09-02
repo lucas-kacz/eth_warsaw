@@ -278,7 +278,9 @@ function App() {
           <ul>
             {
               loading ? (
-                <Spinner />
+                <li>
+                  <Spinner color="default" />
+                </li>
               )
               :
               (

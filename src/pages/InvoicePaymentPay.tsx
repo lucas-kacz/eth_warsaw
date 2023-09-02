@@ -7,7 +7,7 @@ interface RouterProps {
 const InvoicePaymentPay = ({ web3auth, privateKey, account }: RouterProps) => {
     console.log(account);
     return (
-        <div>
+        <div className="page">
             <h1>InvoicePaymentPay</h1>
             <p>{privateKey}</p>
             <p>{account}</p>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import RPC from "../utils/ethersRPC";
+import { Button } from "@nextui-org/react";
 
 interface RouterProps {
     web3auth: any;
@@ -30,10 +31,10 @@ const Dashboard = ({ web3auth }: RouterProps) => {
     };
 
     return (
-        <div>
+        <div className="page">
             <h1>Dashboard</h1>
-            <button onClick={getUserInfo}>Get User Info</button>
-            <button onClick={getAccounts}>Get Accounts</button>
+            <Button onClick={getUserInfo}>Get User Info</Button>
+            <Button onClick={getAccounts}>Get Accounts</Button>
             <p>{user ? JSON.stringify(user) : "No user info"}</p>
             <p>{address ? JSON.stringify(address) : "No address"}</p>
         </div>

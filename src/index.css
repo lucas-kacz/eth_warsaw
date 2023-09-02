@@ -11,13 +11,13 @@
 }
 
 ::-moz-selection {
-  background: var(--light);
-  color: var(--dark);
+  background: var(--dark);
+  color: var(--light);
 }
 
 ::selection {
-  background: var(--light);
-  color: var(--dark);
+  background: var(--dark);
+  color: var(--light);
 }
 
 html {
@@ -53,14 +53,17 @@ nav {
   position: fixed;
   top: 0;
   left: 0;
-  width: 300px;
-  height: 100vh;
-  background-color: var(--medium);
-  z-index: 100;
+  width: 250px;
+  height: calc(100vh - 50px);
+  background-color: var(--light);
+  z-index: 10000;
   display: grid;
   place-items: top left;
   padding: 2rem 0;
+  margin: 25px;
+  border-radius: 25px;
   transition: all 0.5s ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 nav ul {
@@ -74,4 +77,18 @@ nav ul li {
   width: 100%;
   text-align: center;
   padding: 1rem 0;
+}
+
+.page {
+  margin: 25px;
+  padding: 2rem;
+  margin-left: 300px;
+  width: calc(100vw - 325px);
+  height: calc(100vh - 50px);
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.page p {
+  word-break: break-all;
 }

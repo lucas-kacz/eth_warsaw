@@ -36,7 +36,7 @@ const Request = ({ web3auth, privateKey }: RouterProps) => {
     }
 
     return(
-        <div>
+        <div className="page">
             {privateKey}
         </div>
     )
