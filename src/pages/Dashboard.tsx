@@ -104,6 +104,7 @@ const Dashboard = ({ web3auth }: RouterProps) => {
         if (!web3auth.provider) {
         return("provider not initialized yet");
         }
+        console.log(web3auth.provider)
         const rpc = new RPC(web3auth.provider);
         const address = await rpc.getAccounts();
         setAddress(address);

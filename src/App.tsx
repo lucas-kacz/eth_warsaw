@@ -347,7 +347,7 @@ function App() {
     <NextUIProvider>
       <BrowserRouter>
         <Navbar logout={logout} login={login} />
-        <Router web3auth={web3auth} privateKey={privateKey} account={account} />
+        <Router web3auth={web3auth} account={account} provider={provider} />
       </BrowserRouter>
     </NextUIProvider>
   );
