@@ -228,6 +228,7 @@ function App() {
     setProvider(web3authProvider);
     setLoading(false);
     setLoggedIn(true);
+    window.location.href = "/dashboard";
   };
 
   const logout = async () => {
@@ -275,49 +276,69 @@ function App() {
   const Navbar = ({ logout, login }: RouterProps) => {
     return (
       <nav>
-          <ul>
-            {
-              loading ? (
-                <li>
-                  <Spinner color="default" />
-                </li>
-              )
-              :
-              (
-                <>
+        {
+          loading ? (
+            <ul>
               <li>
-                  {
-                      loggedIn ? (
-                        <Button onClick={logout}>Logout</Button>
-                      ) : (
-                        <Button onClick={login}>Login</Button>
-                      )
-                  }
+                <Spinner color="default" />
               </li>
+            </ul>
+          )
+          :
+          (
+            <ul>
               {
-                  loggedIn ? (
-                    <>
-                      <li>
-                          <Link to="/dashboard">Dashboard</Link>
-                      </li>
-                      <li>
-                          <Link to="/contact">Contact</Link>
-                      </li>
-                      <li>
-                          <Link to="/invoice_payment/create">Create Invoice Payment</Link>
-                      </li>
-                      <li>
-                          <Link to="/invoice_payment/pay">Pay Invoice Payment</Link>
-                      </li>
-                    </>
-                  ) : (
-                    <></>
-                  )
+                loggedIn && (
+                    <li>
+                        <Link to="/dashboard">
+                          <i className="fa fa-home"></i>
+                          Dashboard
+                        </Link>
+                    </li>
+                )
               }
-              </>
-              )
-            }
-          </ul>
+              {
+                loggedIn && (
+                    <li>
+                        <Link to="/contact">
+                          <i className="fa fa-address-book"></i>
+                          Contact
+                        </Link>
+                    </li>
+                )
+              }
+              {
+                loggedIn && (
+                    <li>
+                        <Link to="/invoice_payment/create">
+                          <i className="fa fa-plus"></i>
+                          Create Invoice Payment
+                        </Link>
+                    </li>
+                )
+              }
+              {
+                loggedIn && (
+                    <li>
+                        <Link to="/invoice_payment/pay">
+                          <i className="fa fa-money"></i>
+                          Pay Invoice Payment
+                        </Link>
+                    </li>
+                )
+              }
+              <li>
+                {
+                  loggedIn ? (
+                    <Button onClick={logout}>Logout</Button>
+                  ) : (
+                    <Button onClick={login}>Login</Button>
+                  )
+                }
+              </li>
+            </ul>
+          )
+        }
       </nav>
     );
   }

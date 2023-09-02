@@ -20,6 +20,8 @@
     "@web3auth/torus-evm-adapter": "^6.1.7",
     "@web3auth/torus-wallet-connector-plugin": "^6.1.7",
     "@web3auth/wallet-connect-v2-adapter": "^6.1.8",
+    "airtable": "^0.12.2",
+    "axios": "^1.5.0",
     "dotenv": "^16.3.1",
     "ethers": "^6.6.2",
     "framer-motion": "^10.16.2",
